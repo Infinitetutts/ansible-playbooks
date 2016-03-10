@@ -1,0 +1,7 @@
+- hosts: jhb3.8frag.com
+  user: admin
+
+  tasks:
+  - name: Wait For File
+    wait_for: path=/home/admin/temp/100/csgo/addons/sourcemod/plugins/nextmap.smx
+

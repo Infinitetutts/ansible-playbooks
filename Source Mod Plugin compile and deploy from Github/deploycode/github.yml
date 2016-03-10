@@ -1,0 +1,20 @@
+- hosts: server4.iandi.co.za
+  user: admin
+
+  tasks:
+  - name: Assures ~/github exists
+    file: path=~/github
+  - name: Download source code from Github
+    git: repo=git@github.com:SMCode/SourceMod.git dest=~/github
+
+
+- hosts: server5.iandi.co.za
+  user: admin
+
+  tasks:
+  - name: Assures ~/github exists
+    file: path=~/github
+  - name: Download source code from Github
+    git: repo=git@github.com:SMCode/SourceMod.git dest=~/github
+
+

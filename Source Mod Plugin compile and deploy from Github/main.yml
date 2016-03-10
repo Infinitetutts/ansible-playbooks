@@ -1,0 +1,9 @@
+- name: Deploy Github
+
+  hosts: localhost
+
+- include: deploycode/github.yml
+- include: deploycode/server4_289.yml
+- include: deploycode/server4_90.yml
+- include: deploycode/server5_12.yml
+- include: deploycode/server5_13.yml

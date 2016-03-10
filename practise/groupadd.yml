@@ -1,0 +1,11 @@
+
+- hosts: all
+  sudo: yes
+
+  tasks:
+   - group: name=admins 
+
+
+
+
+

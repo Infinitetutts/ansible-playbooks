@@ -1,0 +1,5 @@
+- hosts: server1
+
+  tasks:
+  - name: Download github
+    git: repo=git@github.com:SMCode/SourceMod.git dest=~/github

@@ -1,0 +1,8 @@
+- name: Deploy Github 
+
+  hosts: gameservers
+
+- include: test1.yml
+- include: test2.yml
+- include: test3.yml
+

@@ -1,0 +1,17 @@
+- hosts: server4.iandi.co.za
+  user: admin
+
+  tasks:
+  - name: Copy plugin.sp
+    synchronize: src=~/github/plugin.sp dest=/home/admin/games/290/csgo/addons/sourcemod/scripting
+    delegate_to: server4.iandi.co.za
+
+  - name: Compile source code
+    command: /home/admin/games/290/csgo/addons/sourcemod/scripting/compile.sh plugin.sp
+
+  - name: Wait For File
+    wait_for: path=/home/admin/games/290/csgo/addons/sourcemod/scripting/compiled/plugin.smx
+
+  - name: Copy file 
+    synchronize: src=/home/admin/games/290/csgo/addons/sourcemod/scripting/compiled/plugin.smx dest=/home/admin/games/290/csgo/addons/sourcemod/plugins/plugin.smx
+    delegate_to: server4.iandi.co.za

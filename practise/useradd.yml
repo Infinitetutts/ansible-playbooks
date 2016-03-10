@@ -1,0 +1,11 @@
+- hosts: all
+  sudo: yes
+  vars:
+    #python -c 'import crypt; print crypt.crypt("This is my Password", "$1$SomeSalt$")'
+    password1: $1$pokon$cWqht62QegUPjSZNy1FDM1
+    password2: $1$pokon$cWqht62QegUPjSZNy1FDM1
+
+
+  tasks:
+   - user: name=Peter groups="sudo,admins" password={{password1}}
+     user: name=John groups="sudo,admins" password={{password2}}

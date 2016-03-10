@@ -1,0 +1,19 @@
+- hosts: server3.iandi.co.za 
+  user: admin
+
+  tasks:
+  - name: Download source code from Github
+    git: repo=git@github.com:SMCode/restartServer.git dest=~/temp/git/
+
+  - name: Copy lobby.sp
+    synchronize: src=~/temp/git/restartServer.sp dest=/home/admin/temp/100/csgo/addons/sourcemod/scripting
+    delegate_to: server3.iandi.co.za
+
+
+  - name: Compile source code
+    command: /home/admin/temp/100/csgo/addons/sourcemod/scripting/compile.sh restartServer.sp
+
+  - name: Copy file 
+    synchronize: src=/home/admin/temp/100/csgo/addons/sourcemod/scripting/compiled/restartServer.smx dest=/home/admin/temp/{{ item }}/csgo/addons/sourcemod/plugins/restartServer.smx
+    delegate_to: server3.iandi.co.za
+    with_sequence: start=100 end=200

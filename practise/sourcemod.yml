@@ -1,0 +1,25 @@
+- hosts: server3.iandi.co.za 
+  user: admin
+
+  tasks:
+  - name: Download source code from Github
+    git: repo=git@github.com:SMCode/SourceMod.git dest=~/github
+
+  - name: Copy plugin.sp
+    synchronize: src=~/github/plugin.sp dest=/home/admin/temp/100/csgo/addons/sourcemod/scripting
+    delegate_to: server3.iandi.co.za
+
+  - name: Copy include dir
+    synchronize: src=~/github/include dest=/home/admin/temp/100/csgo/addons/sourcemod/scripting
+    delegate_to: server3.iandi.co.za
+
+
+  - name: Compile source code
+    command: /home/admin/temp/100/csgo/addons/sourcemod/scripting/compile.sh plugin.sp
+
+  - name: Wait For File
+    wait_for: path=/home/admin/temp/100/csgo/addons/sourcemod/scripting/compiled/plugin.smx
+
+  - name: Copy file 
+    synchronize: src=/home/admin/temp/100/csgo/addons/sourcemod/scripting/compiled/plugin.smx dest=/home/admin/temp/100/csgo/addons/sourcemod/plugins/plugin.smx
+    delegate_to: server3.iandi.co.za

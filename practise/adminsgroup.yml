@@ -1,0 +1,6 @@
+- hosts: all
+  sudo: yes
+
+  tasks: 
+  - user: name=john state=present groups="john,sudo,admins"
+

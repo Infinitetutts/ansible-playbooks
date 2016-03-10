@@ -1,0 +1,5 @@
+- hosts: all
+  sudo: yes
+  
+  tasks:
+  - file: path=/home/share/ owner=john group=admins state=directory mode=2770

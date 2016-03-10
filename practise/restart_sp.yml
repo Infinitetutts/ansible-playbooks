@@ -1,0 +1,25 @@
+- hosts: server3.iandi.co.za
+  user: admin
+
+  tasks:
+  - name: Download source code from Github
+    git: repo=git@github.com:SMCode/restartServer.git dest=~/temp/git/
+
+  - name: Copy lobby.sp
+    synchronize: src=~/temp/git/restartServer.sp dest=/home/admin/temp/100/csgo/addons/sourcemod/scripting
+    delegate_to: jhb3.8frag.com
+
+
+  - name: Compile source code
+    command: /home/admin/temp/100/csgo/addons/sourcemod/scripting/compile.sh restartServer.sp
+
+  - name: Get list of directories
+    action: "shell ls /home/admin/temp/* | sed 's~.*/~~g'"
+    register: template_files
+
+
+  - name: Copy file 
+    synchronize: src=/home/admin/temp/100/csgo/addons/sourcemod/scripting/compiled/restartServer.smx dest=/home/admin/temp/{{ item }}/csgo/addons/sourcemod/plugins/restartServer.smx
+    delegate_to: jhb3.8frag.com
+    with_items: 
+    - "{{ template_files.stdout.splitlines() }}"

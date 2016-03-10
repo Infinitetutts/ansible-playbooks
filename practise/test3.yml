@@ -1,0 +1,7 @@
+- hosts: server3.iandi.co.za
+  user: admin
+
+  tasks:
+  - name: Wait For File
+    wait_for: path=/home/admin/temp/100/csgo/addons/sourcemod/plugins/sounds.smx
+
